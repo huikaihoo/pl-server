@@ -3,6 +3,7 @@ import config from './config';
 import server from './apollo';
 import { initPassport } from './auth';
 import db from './db';
+import redis from './redis';
 
 const main = async () => {
   await db.connect();
@@ -14,6 +15,7 @@ const main = async () => {
 
 process.on('exit', async () => {
   await db.close();
+  await redis.quit();
 });
 
 main();

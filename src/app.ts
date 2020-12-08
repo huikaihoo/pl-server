@@ -10,7 +10,7 @@ const skip = (req: Request, res: Response) => {
 // Log Query for morgan
 morgan.token('graphql', (req: Request) => {
   const { query } = req.body;
-  return query.replace(/password:(.*)\"(.*)\"/gi, 'password: "******"');
+  return query ? query.replace(/password:(.*)\"(.*)\"/gi, 'password: "******"') : null;
 });
 
 const app = express();

@@ -1,7 +1,7 @@
-import { ApolloServer, gql, ForbiddenError, SchemaDirectiveVisitor } from 'apollo-server-express';
+import { ApolloServer, gql, AuthenticationError, SchemaDirectiveVisitor } from 'apollo-server-express';
 import { defaultFieldResolver } from 'graphql';
 import { authenticate } from '../auth';
-import { login, user, signup } from './resolvers';
+import { images, login, user, signup } from './resolvers';
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
@@ -16,14 +16,24 @@ const typeDefs = gql`
     accessToken: String
   }
 
-  type Mutation {
-    signup(email: String!, password: String!): User
-    login(email: String!, password: String!): Token
+  type Images {
+    image_ID: String!
+    thumbnails: String!
+    preview: String!
+    title: String!
+    source: String!
+    tags: [String!]!
   }
 
   type Query {
     user: User @isAuthenticated
+    images(keyword: String!): [Images]! @isAuthenticated
     health: String
+  }
+
+  type Mutation {
+    signup(email: String!, password: String!): User
+    login(email: String!, password: String!): Token
   }
 `;
 
@@ -31,6 +41,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     user,
+    images,
     health: () => 'OK',
   },
   Mutation: {
@@ -43,7 +54,7 @@ class IsAuthenticatedDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field: any) {
     const { resolve = defaultFieldResolver } = field;
     field.resolve = async (...args: any[]) => {
-      if (!args[2].payload) throw new ForbiddenError('require login');
+      if (!args[2].payload) throw new AuthenticationError('require login');
       return await resolve.apply(this, args);
     };
   }

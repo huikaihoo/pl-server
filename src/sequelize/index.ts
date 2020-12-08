@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize';
 
 import config from '../config';
-import setup from './setup';
 import user from './models/user';
 
 const sequelize = new Sequelize(config.dbUri);
@@ -12,8 +11,5 @@ const modelDefiners = [user];
 for (const modelDefiner of modelDefiners) {
   modelDefiner(sequelize);
 }
-
-// Setup model associations
-setup.applyAssociation(sequelize);
 
 export default sequelize;
