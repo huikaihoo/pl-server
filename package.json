@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts",
     "test": "NODE_ENV=TEST jest src --coverage --runInBand --forceExit",
-    "apiTest": "ts-node src/apiTest.ts",
-    "generate": "ts-node src/tools/generate.ts",
+    "apiTest": "ts-node src/tools/apiTest.ts",
     "start:ts": "ts-node src/index.ts",
     "start": "node build/index.js",
     "lint": "prettier --write 'src/**/*.{js,ts}'; tslint -p tsconfig.json -c tslint.json --fix",

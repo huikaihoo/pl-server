@@ -22,7 +22,9 @@ const images = async (parent: any, { keyword }: any, context: any) => {
         }
 
         const apiResults = await api.searchImage(keyword);
-        redis.set(key, JSON.stringify(apiResults), 'ex', config.cacheExpiryTime);
+        if (apiResults.length > 0) {
+          redis.set(key, JSON.stringify(apiResults), 'ex', config.cacheExpiryTime);
+        }
 
         return apiResults;
       } catch (err) {

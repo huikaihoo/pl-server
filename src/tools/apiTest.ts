@@ -1,7 +1,7 @@
-import config from './config';
-import PixabayApi from './api/pixabay';
-import StoryblocksApi from './api/storyblocks';
-import UnsplashApi from './api/unsplash';
+import config from '../config';
+import PixabayApi from '../api/pixabay';
+import StoryblocksApi from '../api/storyblocks';
+import UnsplashApi from '../api/unsplash';
 
 const apiTest = async (keyword: string) => {
   // Pixabay API
