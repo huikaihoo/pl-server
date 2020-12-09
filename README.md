@@ -2,7 +2,7 @@
 
 ## External APIs keys
 
-- Modify the following lines in [.env](./env) before starting servers:
+- Modify the following lines in [.env](./.env) before starting servers:
 
 ```
 P_PUBLIC_KEY=<pixabay-api-key>
@@ -56,4 +56,4 @@ open data/coverage/lcov-report/index.html # test coverage report
 
 ## Cache image search results
 
-- Redis is used to cache results from different apis. Results will be return from redis instead of real apis if certain keywords have been queried before. Cache expiry time can be changed by applying environment variable `CACHE_EXPIRY_TIME` in [.env](./env).
+- Redis is used to cache results from different apis. Results will be return from redis instead of real apis if certain keywords have been queried before. Cache expiry time can be changed by applying environment variable `CACHE_EXPIRY_TIME` in [.env](./.env).
